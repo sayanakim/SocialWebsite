@@ -26,4 +26,6 @@ urlpatterns = [
 
     # регистрация
     path('register/', views.register, name='register'),
+    # редактирование аккаунта
+    path('edit/', views.edit, name='edit'),
 ]

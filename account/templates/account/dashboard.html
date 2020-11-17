@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Панель управления{% endblock %}
 
 {% block content %}
-    <h1>Панель управления</h1>
-    <p>Добро пожаловать в вашу панель управления.</p>
+    <h1 class="text-center">Панель управления</h1>
+    <p>Добро пожаловать, {{ user.username }}! в вашу панель управления.</p>
+    <p>Вы можете <a href="{% url 'edit' %}"> отредактировать
+        свой профиль</a> или <a href="{% url 'password_change' %}">
+        изменить пароль</a>.
+    </p>
 {% endblock %}

@@ -2,27 +2,41 @@
     расположенную в django.contrib.auth.forms -->
 
 {% extends "base.html" %}
-{% block title %}Авторизация{% endblock %}
-
+{% block title %}Log-in{% endblock %}
 {% block content %}
-    <h1>Авторизация</h1>
-    {% if form.errors %}
-        <p>
-            Ваше имя пользователя и пароль не совпадают.
-            Пожалуйста, попробуйте еще раз.
-        </p>
-    {% else %}
-        <p>Пожалуйста, используйте следующую форму для входа:</p>
-    {% endif %}
+    <div class="wrap">
+        <h1>Log-in</h1>
+        {% if form.errors %}
+            <p>Ваше имя пользователя и пароль не совпадают.
+                Пожалуйста, попробуйте еще раз.
+            </p>
+        {% else %}
+            <p>Пожалуйста, используйте следующую форму для входа:</p>
+        {% endif %}
+    </div>
+    
     <div class="login-form">
         <form action="{% url 'login' %}" method="post">
             {{ form.as_p }}
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}"/>
-            <p><input type="submit" value="Войти"></p>
+            <p><input type="submit" value="Log-in"></p>
         </form>
+    </div>
 
-        <p><a href="{% url 'password_reset' %}">Забыли свой пароль?</a></p>
+    <div class="row">
+        <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+            <button class="btn btn-danger  mb-2">
+                <a href="#">Login with Instagram</a>
+            </button>
+            <button class="btn btn-primary mb-2">
+                <a href="#">Login with Facebook
+                </a>
+            </button>
+            <button class="btn btn-info mb-2">
+                <a href="#">Login with LinkedIn</a>
+            </button>
+        </div>
     </div>
 {% endblock %}
 

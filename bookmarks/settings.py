@@ -13,7 +13,7 @@ SECRET_KEY = 'xs!e5yti8ru70^&b)lv2kvcwqf7%t$pzkyw#xo437odx*%fkk1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com', "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django', # авторизация через стороние соц.сети
 
 ]
 
@@ -52,6 +53,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -108,15 +110,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR, 'static'
 
-from django.urls import reverse_lazy
-
-LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
-LOGIN_URL =reverse_lazy('login')
-LOGOUT_URL =reverse_lazy('logout')
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
 
 # LOGIN_REDIRECT_URL : Сообщает о том, на какой URL-адрес перенаправлять пользователя после входа в систему.
 # LOGIN_URL : URL-адрес для перенаправления пользователя на вход (например, с помощью декоратора login_required)
 # LOGOUT_URL : URL-адрес для перенаправления пользователя на выход
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Для обслуживания файлов мультимедиа, 
+# загруженных пользователями с сервероа разработки,
+MEDIA_URL = '/media/' # это базовый URL-адрес для обслуживания файлов мультимедиа, отправляемых пользователями
+MEDIA_ROOT = BASE_DIR / 'media/' # локальный путь, в котором они находятся
+
+# Authentication.py
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+
+    # social app
+    'social.backends.facebook.FacebookOAuth2',
+)
