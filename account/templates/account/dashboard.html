@@ -4,9 +4,29 @@
 
 {% block content %}
     <h1 class="text-center">Панель управления</h1>
-    <p>Добро пожаловать, {{ user.username }}! в вашу панель управления.</p>
+    
+    {% with total_images_created=request.user.images_created.count %}
+    <p>
+        Добро пожаловать, {{ user.username }}! в вашу панель управления.</br>
+        Вы сделали закладку {{ total_images_created }} картинку {{ total_images_created|pluralize }}.
+    </p>
+    {% endwith %}
+
+    <p>
+        Перетащите следующую кнопку на панель закладок, чтобы добавить изображения с других веб-сайтов в закладки. → 
+        <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="button">Bookmark it</a>
+    </p>
+
     <p>Вы можете <a href="{% url 'edit' %}"> отредактировать
         свой профиль</a> или <a href="{% url 'password_change' %}">
         изменить пароль</a>.
     </p>
 {% endblock %}
+
+<!-- На панели dashboard теперь отображается общее количество 
+изображений - закладкок пользователя. Мы используем тег шаблона 
+% with % для задания переменной с общим количеством изображений, 
+закладками, заданной текущим пользователем. Мы также включаем 
+ссылку с атрибутом href, который содержит сценарий 
+запуска-закладки. Мы включаем 
+этот код JavaScript из шаблона bookmarklet_launcher.js. -->

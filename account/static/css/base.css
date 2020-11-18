@@ -1,6 +1,6 @@
-/* img {
+img {
     border: 3px solid #606f8b;
-} */
+} 
 .container-fluid {
     height: 100vh;
     background-color: rgb(185, 198, 224);
@@ -26,8 +26,13 @@
     top: 400px;
 }
 
+.image-preview {
+    width: 200PX;
+    height: 200PX;
+}
 
-/* .card {
+
+.card {
     width: 100%;
 }
 .social-container {
@@ -38,4 +43,4 @@ justify-content: center;
 .btn a, .btn a:hover {
     color: white;
     text-decoration: none ;
-} */
+}
